@@ -24,6 +24,7 @@ int get_num(struct node_st *root) {
 	}
 	return	get_num(root->l)+1+get_num(root->r);
 }
+//发现左边最小节点
 struct node_st* find_min(struct node_st*root) {
 	if (root->l==NULL)
 	{
@@ -31,12 +32,14 @@ struct node_st* find_min(struct node_st*root) {
 	}
 	return find_min(root->l);
 }
+//左旋
 void turn_left(struct node_st **root) {
 	struct node_st* cur = *root;
 	*root = cur->r;
 	cur->r = NULL;
 	find_min((*root))->l=cur;
 }
+//发现右边最大的节点
 struct node_st* find_max(struct node_st* root) {
 	if (root->r==NULL)
 	{
@@ -44,12 +47,14 @@ struct node_st* find_max(struct node_st* root) {
 	}
 	return find_max(root->r);
 }
+//右旋
 void true_right(struct node_st** root) {
 	struct node_st* cur = *root;
 	*root = cur->l;
 	cur->l = NULL;
 	find_max(*root)->r=cur;
 }
+//生成平衡树
 void balance(struct node_st** root) {
 	if (*root==NULL)
 	{
@@ -73,6 +78,7 @@ void balance(struct node_st** root) {
 	balance(&(*root)->l);
 	balance(&(*root)->r);
 }
+//根据值发现节点
 struct score_st* find(struct node_st*root,int id) {
 	if (root==NULL)
 	{
@@ -90,6 +96,7 @@ struct score_st* find(struct node_st*root,int id) {
 		return find(root->r,id);
 	}
 }
+//删除节点
 void delete_node(struct node_st **root,int id) {
 	//左边或者右边顶上来
 	//采用左边顶上来
